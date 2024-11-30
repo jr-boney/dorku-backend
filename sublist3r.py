@@ -55,7 +55,7 @@ if is_windows:
         colorama.init()
         #Now the unicode will work ^_^
     except:
-        print("[!] Error: Coloring libraries not installed, no coloring will be used [Check the readme]")
+        # print("[!] Error: Coloring libraries not installed, no coloring will be used [Check the readme]")
         G = Y = B = R = W = G = Y = B = R = W = ''
 
 
@@ -84,7 +84,7 @@ def banner():
 
 
 def parser_error(errmsg):
-    banner()
+    # banner()
     print("Usage: python " + sys.argv[0] + " [Options] use -h for help")
     print(R + "Error: " + errmsg + W)
     sys.exit()
@@ -157,17 +157,17 @@ class enumratorBase(object):
             'Accept-Language': 'en-US,en;q=0.8',
             'Accept-Encoding': 'gzip',
         }
-        self.print_banner()
+        # self.print_banner()
 
     def print_(self, text):
         if not self.silent:
             print(text)
         return
 
-    def print_banner(self):
-        """ subclass can override this if they want a fancy banner :)"""
-        self.print_(G + "[-] Searching now in %s.." % (self.engine_name) + W)
-        return
+    # def print_banner(self):
+    #     """ subclass can override this if they want a fancy banner :)"""
+    #     self.print_(G + "[-] Searching now in %s.." % (self.engine_name) + W)
+    #     return
 
     def send_req(self, query, page_no=1):
 
@@ -999,7 +999,7 @@ def interactive():
         verbose = True
     if args.no_color:
         no_color()
-    banner()
+    # banner()
     res = main(domain, threads, savefile, ports, silent=False, verbose=verbose, enable_bruteforce=enable_bruteforce, engines=engines)
 
 if __name__ == "__main__":
