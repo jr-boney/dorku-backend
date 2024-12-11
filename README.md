@@ -1,169 +1,144 @@
-## About Sublist3r 
 
-Sublist3r is a python tool designed to enumerate subdomains of websites using OSINT. It helps penetration testers and bug hunters collect and gather subdomains for the domain they are targeting. Sublist3r enumerates subdomains using many search engines such as Google, Yahoo, Bing, Baidu and Ask. Sublist3r also enumerates subdomains using Netcraft, Virustotal, ThreatCrowd, DNSdumpster and ReverseDNS.
+# Dorku Backend Project
 
-[subbrute](https://github.com/TheRook/subbrute) was integrated with Sublist3r to increase the possibility of finding more subdomains using bruteforce with an improved wordlist. The credit goes to TheRook who is the author of subbrute.
+## Overview
+This project uses **Flask** to expose an API that runs the `sublist3r.py` script to gather subdomains for a given domain. The application can be run locally or deployed on a server (e.g., Render).
 
-## Screenshots
+## Prerequisites
+1. **Python 3**: Make sure you have Python 3 installed on your machine.
+2. **Virtual Environment**: It’s recommended to use a virtual environment to manage dependencies.
 
-![Sublist3r](http://www.secgeek.net/images/Sublist3r.png "Sublist3r in action")
+## Cloning the Repository
 
+To get started with the project, you first need to clone the repository to your local machine.
 
-## Installation
-
-```
-git clone https://github.com/aboul3la/Sublist3r.git
-```
-
-## Recommended Python Version:
-
-Sublist3r currently supports **Python 2** and **Python 3**.
-
-* The recommended version for Python 2 is **2.7.x**
-* The recommended version for Python 3 is **3.4.x**
-
-## Dependencies:
-
-Sublist3r depends on the `requests`, `dnspython` and `argparse` python modules.
-
-These dependencies can be installed using the requirements file:
-
-- Installation on Windows:
-```
-c:\python27\python.exe -m pip install -r requirements.txt
-```
-- Installation on Linux
-```
-sudo pip install -r requirements.txt
-```
-
-Alternatively, each module can be installed independently as shown below.
-
-#### Requests Module (http://docs.python-requests.org/en/latest/)
-
-- Install for Windows:
-```
-c:\python27\python.exe -m pip install requests
-```
-
-- Install for Ubuntu/Debian:
-```
-sudo apt-get install python-requests
-```
-
-- Install for Centos/Redhat:
-```
-sudo yum install python-requests
-```
-
-- Install using pip on Linux:
-```
-sudo pip install requests
-```
-
-#### dnspython Module (http://www.dnspython.org/)
-
-- Install for Windows:
-```
-c:\python27\python.exe -m pip install dnspython
-```
-
-- Install for Ubuntu/Debian:
-```
-sudo apt-get install python-dnspython
-```
-
-- Install using pip:
-```
-sudo pip install dnspython
-```
-
-#### argparse Module
-
-- Install for Ubuntu/Debian:
-```
-sudo apt-get install python-argparse
-```
-
-- Install for Centos/Redhat:
-```
-sudo yum install python-argparse
-``` 
-
-- Install using pip:
-```
-sudo pip install argparse
-```
-
-**for coloring in windows install the following libraries**
-```
-c:\python27\python.exe -m pip install win_unicode_console colorama
-```
-
-## Usage
-
-Short Form    | Long Form     | Description
-------------- | ------------- |-------------
--d            | --domain      | Domain name to enumerate subdomains of
--b            | --bruteforce  | Enable the subbrute bruteforce module
--p            | --ports       | Scan the found subdomains against specific tcp ports
--v            | --verbose     | Enable the verbose mode and display results in realtime
--t            | --threads     | Number of threads to use for subbrute bruteforce
--e            | --engines     | Specify a comma-separated list of search engines
--o            | --output      | Save the results to text file
--h            | --help        | show the help message and exit
-
-### Examples
-
-* To list all the basic options and switches use -h switch:
-
-```python sublist3r.py -h```
-
-* To enumerate subdomains of specific domain:
-
-``python sublist3r.py -d example.com``
-
-* To enumerate subdomains of specific domain and show only subdomains which have open ports 80 and 443 :
-
-``python sublist3r.py -d example.com -p 80,443``
-
-* To enumerate subdomains of specific domain and show the results in realtime:
-
-``python sublist3r.py -v -d example.com``
-
-* To enumerate subdomains and enable the bruteforce module:
-
-``python sublist3r.py -b -d example.com``
-
-* To enumerate subdomains and use specific engines such Google, Yahoo and Virustotal engines
-
-``python sublist3r.py -e google,yahoo,virustotal -d example.com``
+1. Open **Terminal** or **Command Prompt**.
+2. Run the following command to clone the repository:
+   ```bash
+   git clone https://github.com/jr-boney/dorku-backend.git
 
 
-## Using Sublist3r as a module in your python scripts
+3. Navigate to the project directory:
+   ```bash
+   cd dorku-backend
+   ```
 
-**Example**
+## Setting Up the Environment
 
+### For Windows:
+1. Open **Command Prompt** or **PowerShell**.
+2. Navigate to the project directory where the `requirements.txt` file is located.
+3. Run the following command to create a virtual environment:
+   ```bash
+   python -m venv venv
+   ```
+4. Activate the virtual environment:
+   ```bash
+   .\venv\Scripts\activate
+   ```
+5. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### For Linux/macOS:
+1. Open **Terminal**.
+2. Navigate to the project directory where the `requirements.txt` file is located.
+3. Run the following command to create a virtual environment:
+   ```bash
+   python3 -m venv venv
+   ```
+4. Activate the virtual environment:
+   - For **Linux**:
+     ```bash
+     source venv/bin/activate
+     ```
+   - For **macOS**:
+     ```bash
+     source venv/bin/activate
+     ```
+5. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Running Locally
+
+### Modify Code (If Running Locally)
+Sometimes the relative path to the `sublist3r.py` file may not work as expected due to different working directories. If you're running the project locally, **you may need to modify the path to `sublist3r.py`**.
+
+1. Open `sublist3r_api.py`.
+2. Find line 20 (where `sublist3r.py` is executed).
+3. Change the path to `sublist3r.py` based on its location on your local machine.
+
+**Change this line:**
 ```python
-import sublist3r 
-subdomains = sublist3r.main(domain, no_threads, savefile, ports, silent, verbose, enable_bruteforce, engines)
+result = subprocess.run(
+    ['python', r'sublist3r.py', '-d', domain],  # Original code
+    stdout=subprocess.PIPE, stderr=subprocess.PIPE
+)
 ```
-The main function will return a set of unique subdomains found by Sublist3r
 
-**Function Usage:**
-* **domain**: The domain you want to enumerate subdomains of.
-* **savefile**: save the output into text file.
-* **ports**: specify a comma-sperated list of the tcp ports to scan.
-* **silent**: set sublist3r to work in silent mode during the execution (helpful when you don't need a lot of noise).
-* **verbose**: display the found subdomains in real time.
-* **enable_bruteforce**: enable the bruteforce module.
-* **engines**: (Optional) to choose specific engines.
-
-Example to enumerate subdomains of Yahoo.com:
+**To this (adjust the path based on your local setup):**
 ```python
-import sublist3r 
-subdomains = sublist3r.main('yahoo.com', 40, 'yahoo_subdomains.txt', ports= None, silent=False, verbose= False, enable_bruteforce= False, engines=None)
+result = subprocess.run(
+    ['python', r'path_to_your_local_sublist3r_folder\sublist3r.py', '-d', domain],  # Adjust this path
+    stdout=subprocess.PIPE, stderr=subprocess.PIPE
+)
 ```
+
+For example (if `sublist3r.py` is located in the `dorku-backend` folder):
+```python
+result = subprocess.run(
+    ['python', r'C:\path\to\dorku-backend\sublist3r.py', '-d', domain],  # Windows example
+    stdout=subprocess.PIPE, stderr=subprocess.PIPE
+)
+```
+
+For Linux/macOS, it might look like this:
+```python
+result = subprocess.run(
+    ['python3', r'/path/to/dorku-backend/sublist3r.py', '-d', domain],  # Linux/macOS example
+    stdout=subprocess.PIPE, stderr=subprocess.PIPE
+)
+```
+
+### Running the Flask Application Locally
+Once the path is updated, you can run the Flask application locally.
+
+1. Make sure your virtual environment is activated.
+2. Run the Flask application:
+   ```bash
+   python app.py
+   ```
+   This will start the Flask app on `http://127.0.0.1:5000`.
+
+### Testing the API Locally
+You can test the `/subdomains` API endpoint using a tool like **Postman** or simply through a browser by visiting the following URL:
+```
+http://127.0.0.1:5000/subdomains?domain=example.com
+```
+
+This will return a list of subdomains for the given domain.
+
+## Deployment to Render
+
+If you're deploying this application on **Render** (or any other cloud platform):
+
+1. Push your code to GitHub.
+2. Set up your project on **Render**:
+   - Choose **Python** as the environment.
+   - Point Render to the `main` branch of your GitHub repository.
+3. Render will automatically install dependencies from `requirements.txt` and deploy your Flask app.
+
+Once deployed, you can test the `/subdomains` endpoint on Render:
+
+```
+http://your-app-name.onrender.com/subdomains?domain=example.com
+```
+
+
+
 
 ## License
 

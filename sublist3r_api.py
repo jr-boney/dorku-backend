@@ -53,7 +53,7 @@ if __name__ == '__main__':
 #     try:
 #         # Run Sublist3r using subprocess
 #         result = subprocess.run(
-#             ['python', r'C:\Users\aswin\Projects\Personal\Sublist3r\sublist3r.py', '-d', domain],
+#             ['python', r'C:\Users\Path\to\Your\File\Sublist3r\sublist3r.py', '-d', domain],
 #             stdout=subprocess.PIPE, stderr=subprocess.PIPE
 #         )
 
