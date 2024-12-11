@@ -17,9 +17,11 @@ def get_subdomains():
     try:
         # Run Sublist3r using subprocess
         result = subprocess.run(
-            ['python', r'C:\Users\aswin\Projects\Personal\Sublist3r\sublist3r.py', '-d', domain],
+            ['python', r'sublist3r.py', '-d', domain],
+            
             stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
+        )# C:\Users\Path\to\your\File\Sublist3r\sublist3r.py  on running locally :)
+
 
         # Get the output from Sublist3r
         subdomains = result.stdout.decode('utf-8').split('\n')
