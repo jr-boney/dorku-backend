@@ -1,7 +1,7 @@
 
 from flask import Flask, request, jsonify
 import subprocess
-from flask_cors import CORS  # Importing CORS for cross-origin requests
+from flask_cors import CORS  
 
 app = Flask(__name__)
 
@@ -31,7 +31,7 @@ def get_subdomains():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    # Change port to 3000
+   
     app.run(host='0.0.0.0', port=3000, debug=True)
 
 
